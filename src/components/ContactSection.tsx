@@ -71,20 +71,11 @@ const ContactSection = () => {
         return;
       }
 
-      // Create WhatsApp message
-      const message = `Hi, I would like to inquire about your website services.
-
-Name: ${formData.first_name} ${formData.last_name}
-Company: ${formData.company_name}
-Email: ${formData.email}
-Message: ${formData.message}`;
-      
-      const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
-      window.open(whatsappURL, '_blank');
+      // Form submitted successfully - no WhatsApp redirect
       
       toast({
         title: "Message Sent!",
-        description: "Your message has been saved and sent via WhatsApp. We'll get back to you soon.",
+        description: "Your message has been saved successfully. We'll get back to you soon.",
       });
 
       // Reset form

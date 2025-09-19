@@ -84,23 +84,11 @@ const DemoForm = () => {
         return;
       }
 
-      // Create WhatsApp message with form data
-      const message = `Hi, I would like to inquire about your website services.
-
-Demo Request Details:
-Name: ${formData.name}
-Store Type: ${formData.storeType}
-Interested In: ${formData.inquireFor}
-Contact: ${formData.contactNumber}
-Email: ${formData.email}
-Location: ${formData.location}`;
-      
-      const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
-      window.open(whatsappURL, '_blank');
+      // Form submitted successfully - no WhatsApp redirect
       
       toast({
         title: "Demo Request Submitted!",
-        description: "Your request has been saved and sent via WhatsApp. Our team will contact you soon.",
+        description: "Your request has been saved successfully. Our team will contact you soon.",
       });
 
       // Reset form
