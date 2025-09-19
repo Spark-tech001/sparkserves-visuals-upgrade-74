@@ -10,7 +10,7 @@ const DiscountStamp = () => {
   const [isExpired, setIsExpired] = useState(false);
 
   useEffect(() => {
-    const targetDate = new Date('2025-09-21T00:00:00').getTime();
+    const targetDate = new Date('2025-09-22T00:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
