@@ -15,7 +15,8 @@ const DemoForm = () => {
     inquireFor: '',
     contactNumber: '',
     email: '',
-    location: ''
+    location: '',
+    additional_notes: ''
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -68,7 +69,8 @@ const DemoForm = () => {
             inquire_for: formData.inquireFor,
             contact_number: formData.contactNumber,
             email: formData.email,
-            location: formData.location
+            location: formData.location,
+            additional_notes: formData.additional_notes || null
           }
         ]);
 
@@ -108,7 +110,8 @@ Location: ${formData.location}`;
         inquireFor: '',
         contactNumber: '',
         email: '',
-        location: ''
+        location: '',
+        additional_notes: ''
       });
     } catch (error) {
       console.error('Unexpected error:', error);
@@ -237,6 +240,18 @@ Location: ${formData.location}`;
                     onChange={(e) => handleInputChange('location', e.target.value)}
                     className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                     required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="additional_notes" className="text-foreground font-medium">Additional Notes (Optional)</Label>
+                  <Input
+                    id="additional_notes"
+                    type="text"
+                    placeholder="Any specific requirements or questions?"
+                    value={formData.additional_notes}
+                    onChange={(e) => handleInputChange('additional_notes', e.target.value)}
+                    className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 

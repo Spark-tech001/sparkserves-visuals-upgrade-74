@@ -12,13 +12,11 @@ import contactBg from '@/assets/contact-bg.jpg';
 const ContactSection = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
-    fullName: '',
-    storeType: '',
-    interestedIn: '',
-    contactNumber: '',
-    emailAddress: '',
-    location: '',
-    additionalNotes: ''
+    first_name: '',
+    last_name: '',
+    email: '',
+    company_name: '',
+    message: ''
   });
 
   const handleInputChange = (field: string, value: string) => {
@@ -29,7 +27,7 @@ const ContactSection = () => {
     e.preventDefault();
     
     // Basic validation
-    if (!formData.fullName || !formData.storeType || !formData.interestedIn || !formData.contactNumber || !formData.emailAddress || !formData.location) {
+    if (!formData.first_name || !formData.last_name || !formData.email || !formData.company_name || !formData.message.trim()) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -40,7 +38,7 @@ const ContactSection = () => {
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.emailAddress)) {
+    if (!emailRegex.test(formData.email)) {
       toast({
         title: "Invalid Email",
         description: "Please enter a valid email address.",
@@ -55,14 +53,11 @@ const ContactSection = () => {
         .from('contact_messages')
         .insert([
           {
-            first_name: formData.fullName.split(' ')[0] || formData.fullName,
-            last_name: formData.fullName.split(' ').slice(1).join(' ') || '',
-            company_name: formData.storeType,
-            email: formData.emailAddress,
-            message: `Contact Number: ${formData.contactNumber}
-Location: ${formData.location}
-Interested In: ${formData.interestedIn}
-Additional Notes: ${formData.additionalNotes || 'None'}`
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            company_name: formData.company_name,
+            email: formData.email,
+            message: formData.message
           }
         ]);
 
@@ -79,13 +74,10 @@ Additional Notes: ${formData.additionalNotes || 'None'}`
       // Create WhatsApp message
       const message = `Hi, I would like to inquire about your website services.
 
-Name: ${formData.fullName}
-Store Type: ${formData.storeType}
-Interested In: ${formData.interestedIn}
-Contact: ${formData.contactNumber}
-Email: ${formData.emailAddress}
-Location: ${formData.location}
-Notes: ${formData.additionalNotes || 'None'}`;
+Name: ${formData.first_name} ${formData.last_name}
+Company: ${formData.company_name}
+Email: ${formData.email}
+Message: ${formData.message}`;
       
       const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
       window.open(whatsappURL, '_blank');
@@ -97,13 +89,11 @@ Notes: ${formData.additionalNotes || 'None'}`;
 
       // Reset form
       setFormData({
-        fullName: '',
-        storeType: '',
-        interestedIn: '',
-        contactNumber: '',
-        emailAddress: '',
-        location: '',
-        additionalNotes: ''
+        first_name: '',
+        last_name: '',
+        email: '',
+        company_name: '',
+        message: ''
       });
     } catch (error) {
       console.error('Unexpected error:', error);
@@ -153,98 +143,67 @@ Notes: ${formData.additionalNotes || 'None'}`;
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="fullName" className="text-foreground font-medium">Full Name *</Label>
+                  <Label htmlFor="first_name" className="text-foreground font-medium">First Name *</Label>
                   <Input
-                    id="fullName"
+                    id="first_name"
                     type="text"
-                    placeholder="Enter your full name"
-                    value={formData.fullName}
-                    onChange={(e) => handleInputChange('fullName', e.target.value)}
+                    placeholder="Enter your first name"
+                    value={formData.first_name}
+                    onChange={(e) => handleInputChange('first_name', e.target.value)}
                     className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                     required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="storeType" className="text-foreground font-medium">Store Type *</Label>
-                  <Select onValueChange={(value) => handleInputChange('storeType', value)} value={formData.storeType}>
-                    <SelectTrigger className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20">
-                      <SelectValue placeholder="Select your store type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="restaurant">Restaurant</SelectItem>
-                      <SelectItem value="retail">Retail Store</SelectItem>
-                      <SelectItem value="cafe">Cafe/Coffee Shop</SelectItem>
-                      <SelectItem value="bar">Bar/Pub</SelectItem>
-                      <SelectItem value="bakery">Bakery</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="interestedIn" className="text-foreground font-medium">Interested In *</Label>
-                  <Select onValueChange={(value) => handleInputChange('interestedIn', value)} value={formData.interestedIn}>
-                    <SelectTrigger className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20">
-                      <SelectValue placeholder="Select product you're interested in" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="dine-flow">Dine Flow - Restaurant Management</SelectItem>
-                      <SelectItem value="dine-ease">Dine Ease - Advanced POS</SelectItem>
-                      <SelectItem value="store-assist">Store Assist - Retail Solution</SelectItem>
-                      <SelectItem value="custom">Custom Solution</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="contactNumber" className="text-foreground font-medium">Contact Number *</Label>
+                  <Label htmlFor="last_name" className="text-foreground font-medium">Last Name *</Label>
                   <Input
-                    id="contactNumber"
-                    type="tel"
-                    placeholder="Enter your phone number"
-                    value={formData.contactNumber}
-                    onChange={(e) => handleInputChange('contactNumber', e.target.value)}
+                    id="last_name"
+                    type="text"
+                    placeholder="Enter your last name"
+                    value={formData.last_name}
+                    onChange={(e) => handleInputChange('last_name', e.target.value)}
                     className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                     required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="emailAddress" className="text-foreground font-medium">Email Address *</Label>
+                  <Label htmlFor="email" className="text-foreground font-medium">Email Address *</Label>
                   <Input
-                    id="emailAddress"
+                    id="email"
                     type="email"
                     placeholder="Enter your email address"
-                    value={formData.emailAddress}
-                    onChange={(e) => handleInputChange('emailAddress', e.target.value)}
+                    value={formData.email}
+                    onChange={(e) => handleInputChange('email', e.target.value)}
                     className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                     required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="location" className="text-foreground font-medium">Location *</Label>
+                  <Label htmlFor="company_name" className="text-foreground font-medium">Company Name *</Label>
                   <Input
-                    id="location"
+                    id="company_name"
                     type="text"
-                    placeholder="City, State/Country"
-                    value={formData.location}
-                    onChange={(e) => handleInputChange('location', e.target.value)}
+                    placeholder="Enter your company name"
+                    value={formData.company_name}
+                    onChange={(e) => handleInputChange('company_name', e.target.value)}
                     className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                     required
                   />
                 </div>
 
                 <div>
-                  <Label htmlFor="additionalNotes" className="text-foreground font-medium">Additional Notes (Optional)</Label>
+                  <Label htmlFor="message" className="text-foreground font-medium">Message *</Label>
                   <Textarea
-                    id="additionalNotes"
-                    placeholder="Any specific requirements or questions?"
-                    value={formData.additionalNotes}
-                    onChange={(e) => handleInputChange('additionalNotes', e.target.value)}
+                    id="message"
+                    placeholder="Tell us about your requirements..."
+                    value={formData.message}
+                    onChange={(e) => handleInputChange('message', e.target.value)}
                     className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20"
                     rows={4}
+                    required
                   />
                 </div>
 
