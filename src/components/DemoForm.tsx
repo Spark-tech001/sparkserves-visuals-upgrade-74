@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const DemoForm = () => {
   const { toast } = useToast();
@@ -21,7 +22,7 @@ const DemoForm = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Basic validation
@@ -56,8 +57,33 @@ const DemoForm = () => {
       return;
     }
 
-    // Create WhatsApp message with form data
-    const message = `Hi, I would like to inquire about your website services.
+    try {
+      // Store data in Supabase database
+      const { error } = await supabase
+        .from('demo_requests')
+        .insert([
+          {
+            name: formData.name,
+            store_type: formData.storeType,
+            inquire_for: formData.inquireFor,
+            contact_number: formData.contactNumber,
+            email: formData.email,
+            location: formData.location
+          }
+        ]);
+
+      if (error) {
+        console.error('Error storing demo request:', error);
+        toast({
+          title: "Error",
+          description: "Failed to submit demo request. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create WhatsApp message with form data
+      const message = `Hi, I would like to inquire about your website services.
 
 Demo Request Details:
 Name: ${formData.name}
@@ -66,24 +92,32 @@ Interested In: ${formData.inquireFor}
 Contact: ${formData.contactNumber}
 Email: ${formData.email}
 Location: ${formData.location}`;
-    
-    const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
-    
-    toast({
-      title: "Demo Request Sent!",
-      description: "Your request has been sent via WhatsApp. Our team will contact you soon.",
-    });
+      
+      const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, '_blank');
+      
+      toast({
+        title: "Demo Request Submitted!",
+        description: "Your request has been saved and sent via WhatsApp. Our team will contact you soon.",
+      });
 
-    // Reset form
-    setFormData({
-      name: '',
-      storeType: '',
-      inquireFor: '',
-      contactNumber: '',
-      email: '',
-      location: ''
-    });
+      // Reset form
+      setFormData({
+        name: '',
+        storeType: '',
+        inquireFor: '',
+        contactNumber: '',
+        email: '',
+        location: ''
+      });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (

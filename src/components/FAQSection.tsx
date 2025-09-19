@@ -76,7 +76,10 @@ const FAQSection = () => {
             <p className="text-muted-foreground mb-6">
               Our support team is here to help. Get in touch and we'll answer any questions you have about SparkServes.
             </p>
-            <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-button">
+            <button 
+              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-button"
+              onClick={() => window.open('https://wa.me/919471359517?text=Hi, I have a question about SparkServes. Could you please help me?', '_blank')}
+            >
               Contact Support
             </button>
           </div>

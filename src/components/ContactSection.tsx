@@ -5,9 +5,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import contactBg from '@/assets/contact-bg.jpg';
 
 const ContactSection = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     fullName: '',
     storeType: '',
@@ -22,11 +25,59 @@ const ContactSection = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create WhatsApp message
-    const message = `Hi, I would like to inquire about your website services.
+    // Basic validation
+    if (!formData.fullName || !formData.storeType || !formData.interestedIn || !formData.contactNumber || !formData.emailAddress || !formData.location) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.emailAddress)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Store data in Supabase database
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([
+          {
+            first_name: formData.fullName.split(' ')[0] || formData.fullName,
+            last_name: formData.fullName.split(' ').slice(1).join(' ') || '',
+            company_name: formData.storeType,
+            email: formData.emailAddress,
+            message: `Contact Number: ${formData.contactNumber}
+Location: ${formData.location}
+Interested In: ${formData.interestedIn}
+Additional Notes: ${formData.additionalNotes || 'None'}`
+          }
+        ]);
+
+      if (error) {
+        console.error('Error storing contact message:', error);
+        toast({
+          title: "Error",
+          description: "Failed to submit message. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create WhatsApp message
+      const message = `Hi, I would like to inquire about your website services.
 
 Name: ${formData.fullName}
 Store Type: ${formData.storeType}
@@ -35,9 +86,33 @@ Contact: ${formData.contactNumber}
 Email: ${formData.emailAddress}
 Location: ${formData.location}
 Notes: ${formData.additionalNotes || 'None'}`;
-    
-    const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
+      
+      const whatsappURL = `https://wa.me/919471359517?text=${encodeURIComponent(message)}`;
+      window.open(whatsappURL, '_blank');
+      
+      toast({
+        title: "Message Sent!",
+        description: "Your message has been saved and sent via WhatsApp. We'll get back to you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        fullName: '',
+        storeType: '',
+        interestedIn: '',
+        contactNumber: '',
+        emailAddress: '',
+        location: '',
+        additionalNotes: ''
+      });
+    } catch (error) {
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -114,9 +189,9 @@ Notes: ${formData.additionalNotes || 'None'}`;
                       <SelectValue placeholder="Select product you're interested in" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="dine-flow">Dine Flow - ₹7,999/year</SelectItem>
-                      <SelectItem value="dine-ease">Dine Ease - ₹3,999/year</SelectItem>
-                      <SelectItem value="store-assist">Store Assist - ₹5,999/year</SelectItem>
+                      <SelectItem value="dine-flow">Dine Flow - Restaurant Management</SelectItem>
+                      <SelectItem value="dine-ease">Dine Ease - Advanced POS</SelectItem>
+                      <SelectItem value="store-assist">Store Assist - Retail Solution</SelectItem>
                       <SelectItem value="custom">Custom Solution</SelectItem>
                     </SelectContent>
                   </Select>
