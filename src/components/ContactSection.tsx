@@ -167,7 +167,7 @@ Notes: ${formData.additionalNotes || 'None'}`;
 
                 <div>
                   <Label htmlFor="storeType" className="text-foreground font-medium">Store Type *</Label>
-                  <Select onValueChange={(value) => handleInputChange('storeType', value)}>
+                  <Select onValueChange={(value) => handleInputChange('storeType', value)} value={formData.storeType}>
                     <SelectTrigger className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20">
                       <SelectValue placeholder="Select your store type" />
                     </SelectTrigger>
@@ -184,7 +184,7 @@ Notes: ${formData.additionalNotes || 'None'}`;
 
                 <div>
                   <Label htmlFor="interestedIn" className="text-foreground font-medium">Interested In *</Label>
-                  <Select onValueChange={(value) => handleInputChange('interestedIn', value)}>
+                  <Select onValueChange={(value) => handleInputChange('interestedIn', value)} value={formData.interestedIn}>
                     <SelectTrigger className="mt-2 transition-all duration-300 focus:ring-2 focus:ring-primary/20">
                       <SelectValue placeholder="Select product you're interested in" />
                     </SelectTrigger>
