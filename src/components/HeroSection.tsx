@@ -153,7 +153,9 @@ const HeroSection = () => {
                 
                 {/* Brand Badge */}
                 <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                  
+                  <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                    SparkServes
+                  </div>
                 </div>
               </div>
               
