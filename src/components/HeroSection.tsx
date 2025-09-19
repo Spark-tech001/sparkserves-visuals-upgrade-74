@@ -151,8 +151,12 @@ const HeroSection = () => {
                   </div>
                 </div>
                 
-                {
-                
+                {/* Brand Badge */}
+                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
+                  
+                </div>
+              </div>
+              
               {/* Base Stand - Modern */}
               <div className="flex justify-center mt-6">
                 <div className="w-24 h-2 bg-gradient-to-r from-gray-700 via-gray-600 to-gray-700 rounded-full shadow-xl"></div>
