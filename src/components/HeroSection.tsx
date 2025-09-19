@@ -48,8 +48,7 @@ const HeroSection = () => {
                 Get Demo
               </Button>
               <Button 
-                variant="outline" 
-                className="border-2 border-white text-white px-8 py-6 text-lg font-semibold rounded-xl transition-all duration-300"
+                className="border-2 border-white text-white bg-transparent px-8 py-6 text-lg font-semibold rounded-xl"
                 onClick={() => window.location.href = '/features'}
               >
                 Explore Features →
