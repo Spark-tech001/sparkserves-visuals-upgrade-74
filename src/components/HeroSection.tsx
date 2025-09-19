@@ -49,7 +49,7 @@ const HeroSection = () => {
               </Button>
               <Button 
                 variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-6 text-lg font-semibold rounded-xl transition-all duration-300 hover:scale-105"
+                className="border-2 border-white text-white px-8 py-6 text-lg font-semibold rounded-xl transition-all duration-300"
                 onClick={() => window.location.href = '/features'}
               >
                 Explore Features →
