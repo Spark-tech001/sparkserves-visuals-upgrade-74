@@ -1,6 +1,8 @@
+
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import heroBg from '@/assets/hero-bg.jpg';
+import { Link } from 'react-router-dom';   // ✅ Import Link
 
 const HeroSection = () => {
   return (
@@ -41,20 +43,25 @@ const HeroSection = () => {
             
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                onClick={() => window.location.href = '/demo'}
-              >
-                Get Demo
-              </Button>
-              <Button 
-                className="border-2 border-white text-white bg-transparent px-8 py-6 text-lg font-semibold rounded-xl"
-                onClick={() => window.location.href = '/features'}
-              >
-                Explore Features →
-              </Button>
+              <Link to="/demo">
+                <Button 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  Get Demo
+                </Button>
+              </Link>
+              
+              <Link to="/features">
+                <Button 
+                  className="border-2 border-white text-white bg-transparent px-8 py-6 text-lg font-semibold rounded-xl"
+                >
+                  Explore Features →
+                </Button>
+              </Link>
             </div>
           </div>
+
+          {/* Right Content ... (unchanged) */}
 
           {/* Right Content - Modern Display */}
           <div className="flex-1 lg:pl-12 mt-12 lg:mt-0 animate-slide-in-right">
