@@ -51,11 +51,6 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
             Welcome to{' '}
             <span className="text-primary">SparkServes</span>
           </h1>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Your ultimate cloud-based POS solution designed to revolutionize restaurant and retail operations. 
-            From seamless table management to instant billing, we empower businesses with cutting-edge technology 
-            that scales with your growth.
-          </p>
         </div>
 
         {/* Loading Progress */}
