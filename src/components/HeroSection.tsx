@@ -134,7 +134,10 @@ const HeroSection = () => {
                       {/* Action Button */}
                       <Button 
                         className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white py-4 text-lg font-semibold rounded-xl mb-4 shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 transition-all duration-300"
-                        onClick={() => window.location.href = '/demo'}
+                        onClick={() => {
+  document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+}}
+
                       >
                         Launch Display →
                       </Button>
