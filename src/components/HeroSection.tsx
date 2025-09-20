@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import heroBg from '@/assets/hero-bg.jpg';
-import { Link } from 'react-router-dom';   // ✅ Import Link
+import { Link } from 'react-router-dom';   
 
 const HeroSection = () => {
   return (
