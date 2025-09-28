@@ -215,14 +215,13 @@ const FeaturesSection = () => {
             Join thousands of businesses already using SparkServes to streamline operations and boost revenue.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
+             <Button 
               variant="outline" 
               className="bg-white text-orange-500 border-white hover:bg-orange-50 px-8 py-6 text-lg font-semibold rounded-2xl"
               onClick={() => window.location.href = '/demo'}
             >
               Start Free Trial
             </Button>
-           
           </div>
         </div>
       </div>
