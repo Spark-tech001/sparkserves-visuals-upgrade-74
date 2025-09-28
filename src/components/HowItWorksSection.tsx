@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-
 const HowItWorksSection = () => {
   const steps = [
     {
@@ -91,7 +89,7 @@ const HowItWorksSection = () => {
 
         {/* CTA */}
         <div className="text-center animate-fade-in" style={{ animationDelay: '800ms' }}>
-         <Button 
+           <Button 
               variant="outline" 
               className="bg-white text-orange-500 border-white hover:bg-orange-50 px-8 py-6 text-lg font-semibold rounded-2xl"
               onClick={() => window.location.href = '/demo'}
