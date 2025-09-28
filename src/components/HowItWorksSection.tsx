@@ -89,13 +89,13 @@ const HowItWorksSection = () => {
 
         {/* CTA */}
         <div className="text-center animate-fade-in" style={{ animationDelay: '800ms' }}>
-          <button 
+         <button 
               variant="outline" 
               className="bg-white text-orange-500 border-white hover:bg-orange-50 px-8 py-6 text-lg font-semibold rounded-2xl"
               onClick={() => window.location.href = '/demo'}
             >
               Start Free Trial
-            
+
             <svg className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
