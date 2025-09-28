@@ -222,13 +222,7 @@ const FeaturesSection = () => {
             >
               Start Free Trial
             </Button>
-            <Button 
-              variant="ghost"
-              className="text-white border-white border-2 hover:bg-white hover:text-orange-500 px-8 py-6 text-lg font-semibold rounded-2xl"
-              onClick={() => window.location.href = '/demo'}
-            >
-              Request Demo
-            </Button>
+           
           </div>
         </div>
       </div>
